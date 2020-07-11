@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+
+.Editor{
+  height: 600px ;
+  width: 600px;
+  border: 5px solid black; 
+}

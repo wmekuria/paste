@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import createToolbarPlugin, { Separator } from 'draft-js-static-toolbar-plugin';
 import {
@@ -16,14 +16,28 @@ import {
 } from 'draft-js-buttons';
 import editorStyles from './editorStyles.css';
 import "draft-js/dist/Draft.css";
+import './App.css'
 
 const staticToolbarPlugin = createToolbarPlugin();
 const { Toolbar } = staticToolbarPlugin;
 const plugins = [staticToolbarPlugin];
 
-const EditorBox = () => {
+const EditorBox = (props) => {
+    
     const [editorState, setEditorState] = useState(createEditorStateWithText('text'));
     const editor = React.useRef(null); 
+
+    const getCurrentStat = () => {
+        console.log(editorState)
+    }
+
+    const getTextOnly = () => {
+        console.log(editorState.getCurrentContent().getPlainText('\u0001'))
+    }
+
+    const getSelection = () => {
+        console.log()
+    }
       return (
         <div >
             <Toolbar>
@@ -44,12 +58,16 @@ const EditorBox = () => {
               )
             }
           </Toolbar>
-          <Editor
-            editorState={editorState}
-            plugins={plugins}
-            onChange={(newEditorState) => setEditorState(newEditorState)}
-            ref={editor}
-          />
+          <div className='Editor' >
+            <Editor
+                editorState={editorState}
+                plugins={plugins}
+                onChange={(newEditorState) => setEditorState(newEditorState)}
+                ref={editor}
+            />
+          </div>
+
+          <button onClick={()=>getTextOnly()}>Save</button>
         </div>
       )
 }
